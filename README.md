@@ -1,4 +1,4 @@
-# RESTfulAPI-NodeJS ![License](https://img.shields.io/badge/license-MIT-yellow)
+# RESTfulAPI-NodeJS
 
 基於Node.js技術打造的RESTful API部落格後端平台。
 
