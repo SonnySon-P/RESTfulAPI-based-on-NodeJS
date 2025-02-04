@@ -43,6 +43,8 @@
 * `GET` /api/posts或`GET` /api/posts?limit=列出資料筆數&offset=從第幾筆資料開始列出：查詢貼文
 > [!Note]
 > 此GET請求採用偏移分頁方法，使用兩個參數：offset（資料集中的起始位置）和limit（返回的資料數量）。其中，offset通常表示搜尋結果的第一筆資料的索引（需注意，資料集的索引是從0開始計算），而limit則指定響應中返回的資料筆數。例如，請求`GET`  api/posts?limit=10&offset=0 中，limit=10表示返回10篇貼文，offset=0則表示從資料集的第0筆貼文開始計算。若採用沒有參數傳遞方法（`GET` /api/posts），則會列出所有搜尋結果。
+* `PUT` /api/posts：更新貼文
+* `DELETE` /api/posts：刪除貼文
 
 **六、檔案說明：** 
 此專案檔案（指coding這個資料夾）主要分為兩個資料夾：nodejs和tests。其中，nodejs資料夾為後端平台的主要程式碼，tests資料夾則存放使用jest框架進行的單元測試。接下來將對各資料夾中的檔案內容進行詳細說明。
@@ -53,7 +55,7 @@
    * index.js：首頁，為`GET` /的程式碼
    * register.js：註冊帳號，為`POST` /api/register的程式碼
    * login.js：登入帳號，為`POST` /api/login的程式碼
-   * posts.js：貼文管理，為`POST` /api/posts與`GET` /api/posts的程式碼
+   * posts.js：貼文管理，為`POST` /api/posts、`GET` /api/posts、`PUT` /api/posts和`DELETE` /api/posts的程式碼
 2. tests
    * index.test.js：對`GET` /的單元測試程式碼
    * register.test.js：對`POST` /api/register的單元測試程式碼
