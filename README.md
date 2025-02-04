@@ -8,7 +8,7 @@
 <br>
 
 **二、目標：**
-這個RESTful API平台旨在為前端提供便捷的部落格帳戶與貼文管理功能，支援用戶註冊、登入、創建及瀏覽貼文等操作。平台的開發基於PostgreSQL、Node.js及相關套件，除了實現常見的安全防護機制外，還特別針對軟體的正確性與完整性進行了嚴謹的單元測試，使用Jest測試框架來確保系統的穩定性與可靠性。
+這個RESTful API平台旨在為前端提供高效的部落格帳戶與貼文管理功能，支援用戶註冊與登入、貼文創建、瀏覽、修改和刪除等常見操作。平台開發基於PostgreSQL、Node.js及相關套件，除了實現常規的安全防護措施外，我們還針對軟體的正確性與完整性進行了嚴格的單元測試，並使用Jest測試框架來確保系統的穩定性與可靠性。
 <br>
 
 **三、開發環境：**
@@ -83,7 +83,7 @@
 **ㄧ、下載程式方式：** 
 檔案來源主要有兩種方式，具體如下所示：
 1. 從GitHub下載該檔案，並在有安裝Node.js與PostgreSQL的環境下，執行該程式。
-2. 透過Docker Hub搜尋randysonnyson/nodejs_blogging_api下載映像檔，該容器中除了Node.js外，PostgreSQL也安裝於其中。
+2. 透過Docker Hub搜尋randysonnyson/nodejs_blogging_restfulapi下載映像檔，該容器中除了Node.js外，PostgreSQL也安裝於其中。
 
 **二、安裝程式方式：** 
 根據不同的檔案來源，接下來的系統架設方式將有所區別，具體操作方式如下：
@@ -159,16 +159,16 @@
 2. Docker（較為建議的安裝方式）：
   * 若選擇使用Docker容器運行，請在有安裝Docker的終端機執行以下指令：
   ```shell
-  docker pull randysonnyson/nodejs_blogging_api
+  docker pull randysonnyson/nodejs_blogging_restfulapi
   ```
   * 下載後，執行以下指令啟動容器：
   ```shell
-  docker run -it -p 6001:6001 --name testAPI randysonnyson/nodejs_blogging_api        
+  docker run -it -p 6001:6001 --name testAPI randysonnyson/nodejs_blogging_restfulapi        
   ```
   * 執行以下指令啟動資料庫與伺服器：
   ```shell
   sudo service postgresql start
-  cd /root/CCSRDD/nodejs
+  cd /root/RESTfulAPI-NodeJS/nodejs
   node server.js
   ```
 
@@ -193,7 +193,7 @@
 ## 參、單元測試
 檔案中包含對平台兩個API的單元測試，測試程式碼位於./tests資料夾內，分別針對`POST` /api/register與`POST` /api/login進行評估。操作方式如下所示：（以Docker容器運行為例）
 ```shell
-cd /root/CCSRDD
+cd /root/RESTfulAPI-NodeJS
 npm test
 ```
 <br>
