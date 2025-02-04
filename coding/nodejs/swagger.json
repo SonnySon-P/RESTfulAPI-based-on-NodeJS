@@ -1,0 +1,1052 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Blog Backend Server",
+        "description": "RESTful API in Node.js with Javascript",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "127.0.0.1:6001",
+    "basePath": "/",
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "securityDefinitions": {
+        "bearerAuth": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "Authorization",
+          "description": "Bearer token to access these api endpoints",
+          "scheme": "bearer"
+        }
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "tags": ["default"],
+                "summary": "Index",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/defaultResponses200"
+                        }
+                    },
+                    "404": {  
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/defaultResponses404"
+                        }
+                    },
+                    "451": {  
+                        "description": "Unavailable For Legal Reasons",
+                        "schema": {
+                            "$ref": "#/definitions/defaultResponses451"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": ["register"],
+                "summary": "Create Account",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Please use JSON to input username and email and password",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/registerResponses201"
+                        }
+                    },
+                    "400": {  
+                        "description": "Bad Requests",
+                        "schema": {
+                            "$ref": "#/definitions/registerResponses400"
+                        }
+                    },
+                    "403": {  
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/registerResponses403"
+                        }
+                    },
+                    "404": {  
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/registerResponses404"
+                        }
+                    },
+                    "422": {  
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/registerResponses422"
+                        }
+                    },
+                    "500": {  
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/registerResponses500"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": ["login"],
+                "summary": "Login Account",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Please use JSON to input email and password",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/loginResponses200"
+                        }
+                    },
+                    "400": {  
+                        "description": "Bad Requests",
+                        "schema": {
+                            "$ref": "#/definitions/loginResponses400"
+                        }
+                    },
+                    "401": {  
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/loginResponses401"
+                        }
+                    },
+                    "403": {  
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/loginResponses403"
+                        }
+                    },
+                    "404": {  
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/loginResponses404"
+                        }
+                    },
+                    "422": {  
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/loginResponses422"
+                        }
+                    },
+                    "500": {  
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/loginResponses500"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts": {
+            "get": {
+                "tags": ["posts"],
+                "summary": "List Posts",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "List several records at a time",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Where to start?",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posts1Responses200"
+                        }
+                    },
+                    "400": {  
+                        "description": "Bad Requests",
+                        "schema": {
+                            "$ref": "#/definitions/posts1Responses400"
+                        }
+                    },
+                    "401": {  
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/posts1Responses401"
+                        }
+                    },
+                    "403": {  
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/posts1Responses403"
+                        }
+                    },
+                    "404": {  
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/posts1Responses404"
+                        }
+                    },
+                    "500": {  
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/posts1Responses500"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["posts"],
+                "summary": "Create Posts",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Please use JSON to input title and content",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posts2Responses200"
+                        }
+                    },
+                    "400": {  
+                        "description": "Bad Requests",
+                        "schema": {
+                            "$ref": "#/definitions/posts2Responses400"
+                        }
+                    },
+                    "401": {  
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/posts2Responses401"
+                        }
+                    },
+                    "403": {  
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/posts2Responses403"
+                        }
+                    },
+                    "404": {  
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/posts2Responses404"
+                        }
+                    },
+                    "500": {  
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/posts2Responses500"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["posts"],
+                "summary": "Update Posts",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Enter the data number",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Please use JSON to input title and content",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "content": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posts3Responses200"
+                        }
+                    },
+                    "400": {  
+                        "description": "Bad Requests",
+                        "schema": {
+                            "$ref": "#/definitions/posts3Responses400"
+                        }
+                    },
+                    "401": {  
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/posts3Responses401"
+                        }
+                    },
+                    "403": {  
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/posts3Responses403"
+                        }
+                    },
+                    "404": {  
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/posts3Responses404"
+                        }
+                    },
+                    "500": {  
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/posts3Responses500"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["posts"],
+                "summary": "Delete Posts",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Enter the data number",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posts4Responses200"
+                        }
+                    },
+                    "400": {  
+                        "description": "Bad Requests",
+                        "schema": {
+                            "$ref": "#/definitions/posts4Responses400"
+                        }
+                    },
+                    "401": {  
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/posts4Responses401"
+                        }
+                    },
+                    "403": {  
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/posts4Responses403"
+                        }
+                    },
+                    "404": {  
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/posts4Responses404"
+                        }
+                    },
+                    "500": {  
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/posts4Responses500"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "defaultResponses200": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "200"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Welcome! This is the API server, Please enter the appropriate pat"
+                }
+            }
+        },
+        "defaultResponses404": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "404"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not found"
+                }
+            }
+        },
+        "defaultResponses451": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "451"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not on whitelist"
+                }
+            }
+        },
+        "registerResponses201": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "201"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Successfully created record"
+                }
+            }
+        },
+        "registerResponses400": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "400"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Data is empty"
+                }
+            }
+        },
+        "registerResponses403": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "403"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Email is exist or Failed to read record or Failed to created record"
+                }
+            }
+        },
+        "registerResponses404": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "404"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not found"
+                }
+            }
+        },
+        "registerResponses422": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "422"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "The email format is incorrect or the password length is less than 6"
+                }
+            }
+        },
+        "registerResponses500": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "ERROR"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Database connection failed"
+                }
+            }
+        },
+        "loginResponses200": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "200"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "JWT"
+                }
+            }
+        },
+        "loginResponses400": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "400"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Data is empty"
+                }
+            }
+        },
+        "loginResponses401": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "401"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Uncertified"
+                }
+            }
+        },
+        "loginResponses403": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "403"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Failed to read record"
+                }
+            }
+        },
+        "loginResponses404": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "404"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not found"
+                }
+            }
+        },
+        "loginResponses422": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "422"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "The email format is incorrect or the password length is less than 6"
+                }
+            }
+        },
+        "loginResponses500": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "500"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Database connection failed"
+                }
+            }
+        },
+        "posts1Responses200": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "200"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Search results"
+                }
+            }
+        },
+        "posts1Responses400": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "400"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not token"
+                }
+            }
+        },
+        "posts1Responses401": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "401"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not authorized"
+                }
+            }
+        },
+        "posts1Responses403": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "403"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Search condition out of range"
+                }
+            }
+        },
+        "posts1Responses404": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "404"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not found"
+                }
+            }
+        },
+        "posts1Responses500": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "500"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Database connection failed"
+                }
+            }
+        },
+        "posts2Responses200": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "200"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Successfully created record"
+                }
+            }
+        },
+        "posts2Responses400": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "400"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not token or Data is empty"
+                }
+            }
+        },
+        "posts2Responses401": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "401"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not authorized"
+                }
+            }
+        },
+        "posts2Responses403": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "403"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Failed to create record"
+                }
+            }
+        },
+        "posts2Responses404": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "404"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not found"
+                }
+            }
+        },
+        "posts2Responses500": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "500"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Database connection failed"
+                }
+            }
+        },
+        "posts3Responses200": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "200"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Successfully update record"
+                }
+            }
+        },
+        "posts3Responses400": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "400"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not token or Data is empty"
+                }
+            }
+        },
+        "posts3Responses401": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "401"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not authorized"
+                }
+            }
+        },
+        "posts3Responses403": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "403"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Failed to update record"
+                }
+            }
+        },
+        "posts3Responses404": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "404"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not found"
+                }
+            }
+        },
+        "posts3Responses500": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "500"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Database connection failed"
+                }
+            }
+        },
+        "posts4Responses200": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "200"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Successfully delete record"
+                }
+            }
+        },
+        "posts4Responses400": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "400"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not token or Data is empty"
+                }
+            }
+        },
+        "posts4Responses401": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "401"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not authorized"
+                }
+            }
+        },
+        "posts4Responses403": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "403"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Failed to delete record"
+                }
+            }
+        },
+        "posts4Responses404": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "404"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Not found"
+                }
+            }
+        },
+        "posts4Responses500": {
+            "required": ["result", "message"],
+            "properties": {
+                "result": {
+                    "type": "string",
+                    "required": true,
+                    "example": "500"
+                },
+                "message": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Database connection failed"
+                }
+            }
+        }
+    }   
+}
